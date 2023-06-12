@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    /*
         Map<String, Object> city = new HashMap<>();
 
         city.put("name", "Kamin");
@@ -102,6 +103,18 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(MainActivity.this, "Values added", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+     */
+        Map<String, Object> data = new HashMap<>();
+        data.put("capital", false);
+
+        db.collection("cities").document("JSR").set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Merge successful!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
