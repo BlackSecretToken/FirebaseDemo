@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -136,9 +138,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-     */
+
         DocumentReference ref = FirebaseFirestore.getInstance().collection("cities").document("JSR");
         ref.update("capital", true);
 
+     */
+        DocumentReference ref = FirebaseFirestore.getInstance().collection("cities").document("JSR");
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        Log.d("Document", doc.getData().toString());
+                    } else {
+                        Log.d("Document", "No data");
+                    }
+                }
+            }
+        });
     }
 }
