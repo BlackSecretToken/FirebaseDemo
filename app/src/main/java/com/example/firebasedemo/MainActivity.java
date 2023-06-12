@@ -20,7 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import org.w3c.dom.Document;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+    /*
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> city = new HashMap<>();
@@ -105,5 +109,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("capital", false);
+
+        db.collection("cities").document("JSR").set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Merge successful!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", "Tokyo");
+        data.put("capital", "Japan");
+
+        db.collection("cities").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Values added successfully!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+     */
+        DocumentReference ref = FirebaseFirestore.getInstance().collection("cities").document("JSR");
+        ref.update("capital", true);
+
     }
 }
