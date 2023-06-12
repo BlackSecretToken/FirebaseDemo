@@ -24,6 +24,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import org.w3c.dom.Document;
+
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
     /*
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         Map<String, Object> city = new HashMap<>();
 
         city.put("name", "Kamin");
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        */
+
 
         Map<String, Object> data = new HashMap<>();
         data.put("name", "Tokyo");
@@ -133,5 +135,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+     */
+        DocumentReference ref = FirebaseFirestore.getInstance().collection("cities").document("JSR");
+        ref.update("capital", true);
+
     }
 }
